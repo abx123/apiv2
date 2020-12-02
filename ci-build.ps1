@@ -1,8 +1,8 @@
 GOOS=linux 
-go build -o chapter ./chapter/chapter.go
-go build -o list ./list/list.go
-go build -o chapterlist ./chapterlist/chapterlist.go 
-mkdir outputs
-zip ./chapter/chapter.zip chapter
-zip ./chapterlist/chapterlist.zip chapterlist
-zip ./list/list.zip list
+go build -o output/chapter ./chapter/chapter.go
+go build -o output/list ./list/list.go
+go build -o output/chapterlist ./chapterlist/chapterlist.go 
+mkdir zip
+zip ./zip/chapter.zip ./output/chapter
+zip ./zip/chapterlist.zip ./output/chapterlist
+zip ./zip/list.zip ./output/list
