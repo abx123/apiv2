@@ -12,9 +12,9 @@ jobs:
       - run: 
           name: Installing dependencies
           command: go get -u github.com/aws/aws-lambda-go/cmd/build-lambda-zip
-      - run: 
-          name: Installing dependencies 2
-          command: go get -u github.com/aws/aws-lambda-go
+      # - run: 
+      #     name: Installing dependencies 2
+      #     command: go get -u github.com/aws/aws-lambda-go
       - run: 
           name: Building project
           command: bash ./ci-build.ps1
@@ -36,8 +36,14 @@ jobs:
       - aws-cli/setup:
           profile-name: default
       - run:
-          name: Upload file to S3
-          command: aws s3 cp ./chapter/chapter.zip s3://my-tf-lambda-bucket/crawler/chapter/chapter.zip && aws s3 cp ./list/list.zip s3://my-tf-lambda-bucket/crawler/list/list.zip && aws s3 cp ./chapterlist/chapterlist.zip s3://my-tf-lambda-bucket/crawler/chapterlist/chapterlist.zip
+          name: Upload chapter.zip to S3
+          command: aws s3 cp ./chapter/chapter.zip s3://my-tf-lambda-bucket/crawler/chapter/chapter.zip 
+      - run:
+          name: Upload list.zip to S3
+          command: aws s3 cp ./list/list.zip s3://my-tf-lambda-bucket/crawler/list/list.zip 
+      - run:
+          name: Upload chapterlist.zip to S3
+          command: aws s3 cp ./chapterlist/chapterlist.zip s3://my-tf-lambda-bucket/crawler/chapterlist/chapterlist.zip
       - slack/status:
           mentions: 'A018EEQR020'
           success_message: '[${PROJECT_ENV_VAR}]Upload success! :bb-dance::pet-bb-head::bb-begging:'
