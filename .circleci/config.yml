@@ -40,7 +40,7 @@ jobs:
           command: aws s3 cp ./chapter/chapter.zip s3://my-tf-lambda-bucket/api/chapter/chapter.zip 
       - run:
           name: Upload list.zip to S3
-          command: aws s3 cp ./llist/ist.zip s3://my-tf-lambda-bucket/api/list/list.zip 
+          command: aws s3 cp ./list/list.zip s3://my-tf-lambda-bucket/api/list/list.zip 
       - run:
           name: Upload chapterlist.zip to S3
           command: aws s3 cp ./chapterlist/chapterlist.zip s3://my-tf-lambda-bucket/api/chapterlist/chapterlist.zip
