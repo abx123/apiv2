@@ -1,6 +1,6 @@
 GOOS=linux 
-go build -o output/novels ./chapter/novels.go
-go build -o output/chapters ./list/chapters.go
+go build -o output/novels ./novels/novels.go
+go build -o output/chapters ./chapters/chapters.go
 go build -o output/chapter ./chapter/chapter.go 
 mkdir zip
 zip ./zip/novels.zip ./output/novels
