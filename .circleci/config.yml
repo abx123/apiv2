@@ -12,9 +12,9 @@ jobs:
       # - run: 
       #     name: Installing dependencies
       #     command: go get -u github.com/aws/aws-lambda-go/cmd/build-lambda-zip
-      - run: 
-          name: Installing aws lambda dependencies
-          command: go get github.com/aws/aws-lambda-go
+      # - run: 
+      #     name: Installing aws lambda dependencies
+      #     command: go get github.com/aws/aws-lambda-go
       - run: 
           name: Installing firebase dependencies
           command: go get firebase.google.com/go
