@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -23,12 +24,14 @@ type Novel struct {
 }
 
 func main() {
+	fmt.Println("lambda start")
 	Init()
 	lambda.Start(handleRequest)
 }
 
 // The input type and the output type are defined by the API Gateway.
 func handleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	fmt.Println(fmt.Sprintf("qs:%+v", request.QueryStringParameters))
 	var err error
 	var resp interface{}
 	headers := map[string]string{
