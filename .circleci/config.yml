@@ -61,13 +61,13 @@ jobs:
           profile-name: default
       - run:
           name: Update lambda_novels function code
-          command: aws lambda update-function-code --function-name lambda_novels --s3-bucket my-tf-lambda-bucket --s3-key novels/novels.zip
+          command: aws lambda update-function-code --function-name lambda_novels --s3-bucket my-tf-lambda-bucket --s3-key api/novels/novels.zip
       - run:
           name: Update lambda function code
-          command: aws lambda update-function-code --function-name lambda_chapters --s3-bucket my-tf-lambda-bucket --s3-key chapters/chapters.zip
+          command: aws lambda update-function-code --function-name lambda_chapters --s3-bucket my-tf-lambda-bucket --s3-key api/chapters/chapters.zip
       - run:
           name: Update lambda function code
-          command: aws lambda update-function-code --function-name lambda_chapter --s3-bucket my-tf-lambda-bucket --s3-key chapter/chapter.zip
+          command: aws lambda update-function-code --function-name lambda_chapter --s3-bucket my-tf-lambda-bucket --s3-key api/chapter/chapter.zip
       - slack/status:
           mentions: 'A018EEQR020'
           success_message: '[${PROJECT_ENV_VAR}]Deploy success! :bb-dance::pet-bb-head::bb-begging:'
