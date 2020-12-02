@@ -18,12 +18,6 @@ import (
 
 var client *db.Client
 
-// Novel ...
-type Novel struct {
-	Name     string
-	Chapters []Chapter
-}
-
 // Chapter ...
 type Chapter struct {
 	Title   string `json:"title"`

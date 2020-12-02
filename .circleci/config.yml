@@ -39,14 +39,14 @@ jobs:
       - aws-cli/setup:
           profile-name: default
       - run:
+          name: Upload novels.zip to S3
+          command: aws s3 cp ./zip/novels.zip s3://my-tf-lambda-bucket/api/novels/novels.zip 
+      - run:
+          name: Upload chapters.zip to S3
+          command: aws s3 cp ./zip/chapters.zip s3://my-tf-lambda-bucket/api/chapters/chapters.zip 
+      - run:
           name: Upload chapter.zip to S3
-          command: aws s3 cp ./zip/chapter.zip s3://my-tf-lambda-bucket/api/chapter/chapter.zip 
-      - run:
-          name: Upload list.zip to S3
-          command: aws s3 cp ./zip/list.zip s3://my-tf-lambda-bucket/api/list/list.zip 
-      - run:
-          name: Upload chapterlist.zip to S3
-          command: aws s3 cp ./zip/chapterlist.zip s3://my-tf-lambda-bucket/api/chapterlist/chapterlist.zip
+          command: aws s3 cp ./zip/chapter.zip s3://my-tf-lambda-bucket/api/chapter/chapter.zip
       - slack/status:
           mentions: 'A018EEQR020'
           success_message: '[${PROJECT_ENV_VAR}]Upload success! :bb-dance::pet-bb-head::bb-begging:'
@@ -60,9 +60,14 @@ jobs:
       - aws-cli/setup:
           profile-name: default
       - run:
+          name: Update lambda_novels function code
+          command: aws lambda update-function-code --function-name lambda_novels --s3-bucket my-tf-lambda-bucket --s3-key novels/novels.zip
+      - run:
           name: Update lambda function code
-          command: aws lambda update-function-code --function-name crawler_lambda --s3-bucket my-tf-lambda-bucket --s3-key crawler/main.zip
-
+          command: aws lambda update-function-code --function-name lambda_chapters --s3-bucket my-tf-lambda-bucket --s3-key chapters/chapters.zip
+      - run:
+          name: Update lambda function code
+          command: aws lambda update-function-code --function-name lambda_chapter --s3-bucket my-tf-lambda-bucket --s3-key chapter/chapter.zip
       - slack/status:
           mentions: 'A018EEQR020'
           success_message: '[${PROJECT_ENV_VAR}]Deploy success! :bb-dance::pet-bb-head::bb-begging:'

@@ -19,16 +19,7 @@ var client *db.Client
 
 // Novel ...
 type Novel struct {
-	Name     string
-	Chapters []Chapter
-}
-
-// Chapter ...
-type Chapter struct {
-	Title   string `json:"title"`
-	Text    string `json:"text"`
-	Link    string `json:"link"`
-	Chapter int64  `json:"chapter"`
+	Name string
 }
 
 func main() {
