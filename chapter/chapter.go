@@ -28,14 +28,12 @@ type Chapter struct {
 }
 
 func main() {
-	fmt.Println("lambda start")
 	Init()
 	lambda.Start(handleRequest)
 }
 
 // The input type and the output type are defined by the API Gateway.
 func handleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	fmt.Println(fmt.Sprintf("qs:%+v", request.QueryStringParameters))
 	var err error
 	var resp interface{}
 	headers := map[string]string{
@@ -44,13 +42,13 @@ func handleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 		"Access-Control-Allow-Methods": "GET",
 	}
 
-	chapter, _ := strconv.ParseInt(request.QueryStringParameters["chapter"], 10, 64)
+	chapter, _ := strconv.ParseInt(request.PathParameters["chapter"], 10, 64)
 	if chapter == 0 || request.QueryStringParameters["novel"] == "" {
 		err = fmt.Errorf("Missing novel")
 
 	}
 
-	resp, err = getChapter(request.QueryStringParameters["novel"], chapter)
+	resp, err = getChapter(request.PathParameters["novel"], chapter)
 
 	if err != nil {
 		return events.APIGatewayProxyResponse{
