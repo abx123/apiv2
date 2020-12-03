@@ -40,7 +40,7 @@ func handleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 		"Access-Control-Allow-Origin":  "*",
 		"Access-Control-Allow-Methods": "GET",
 	}
-
+	fmt.Println("param:" + request.PathParameters["novel"])
 	if request.PathParameters["novel"] == "" {
 		err = fmt.Errorf("Missing novel")
 	}
@@ -98,7 +98,7 @@ func getChapters(novel string) ([]Chapter, error) {
 }
 
 func getChapters2(novel string) ([]Chapter, error) {
-	fmt.Println("getChapters2")
+	fmt.Println("getChapters2:" + novel)
 	var shallowNovels map[string]bool
 	if err := client.NewRef("novels/"+novel).GetShallow(context.Background(), &shallowNovels); err != nil {
 		return nil, err
