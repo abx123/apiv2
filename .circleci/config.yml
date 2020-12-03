@@ -27,7 +27,7 @@ jobs:
             - .
       - run: exit 0
       - slack/status:
-          mentions: 'A018EEQR020'
+          mentions: 'kitefishBB'
           success_message: '[${PROJECT_ENV_VAR}]Build success! :bb-dance::pet-bb-head::bb-begging:'
           failure_message: '[${PROJECT_ENV_VAR}]Build failed! :bb-no::bb-panggang-no-cry::bb-emo-bb-cry::bb-cry-till-flood:'
 
@@ -51,7 +51,7 @@ jobs:
           name: Upload package.zip to S3
           command: aws s3 cp ./output/package.zip s3://my-tf-lambda-bucket/api/package.zip
       - slack/status:
-          mentions: 'A018EEQR020'
+          mentions: 'kitefishBB'
           success_message: '[${PROJECT_ENV_VAR}]Upload success! :bb-dance::pet-bb-head::bb-begging:'
           failure_message: '[${PROJECT_ENV_VAR}]Upload failed! :bb-no::bb-panggang-no-cry::bb-emo-bb-cry::bb-cry-till-flood:'
 
@@ -72,7 +72,7 @@ jobs:
           name: Update lambda_chapter function code
           command: aws lambda update-function-code --function-name lambda_chapter --s3-bucket my-tf-lambda-bucket --s3-key api/chapter/chapter.zip
       - slack/status:
-          mentions: 'A018EEQR020'
+          mentions: 'kitefishBB'
           success_message: '[${PROJECT_ENV_VAR}]Deploy success! :bb-dance::pet-bb-head::bb-begging:'
           failure_message: '[${PROJECT_ENV_VAR}]Deploy failed! :bb-no::bb-panggang-no-cry::bb-emo-bb-cry::bb-cry-till-flood:'
 
