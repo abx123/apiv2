@@ -44,7 +44,7 @@ func handleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 	if request.PathParameters["novel"] == "" {
 		err = fmt.Errorf("Missing novel")
 	}
-	resp, err = getChapterList(request.QueryStringParameters["novel"])
+	resp, err = getChapterList2(request.QueryStringParameters["novel"])
 
 	if err != nil {
 		return events.APIGatewayProxyResponse{
@@ -80,7 +80,8 @@ func Init() {
 	}
 }
 
-func getChapterList(novel string) ([]Chapter, error) {
+func getChapters(novel string) ([]Chapter, error) {
+	fmt.Println("getChapters")
 	q := client.NewRef("novels/" + novel).OrderByChild("chapter")
 	result, err := q.GetOrdered(context.Background())
 	if err != nil {
@@ -94,6 +95,19 @@ func getChapterList(novel string) ([]Chapter, error) {
 		chapters = append(chapters, Chapter{Title: ch.Title, Chapter: ch.Chapter})
 	}
 	return chapters, nil
+}
+
+func getChapterList2(novel string) ([]Chapter, error) {
+	fmt.Println("getChapterList2")
+	var shallowNovels map[string]bool
+	if err := client.NewRef("novels/"+novel).GetShallow(context.Background(), &shallowNovels); err != nil {
+		return nil, err
+	}
+	novels := make([]Chapter, 0, len(shallowNovels))
+	for k := range shallowNovels {
+		novels = append(novels, Chapter{Title: k})
+	}
+	return novels, nil
 }
 
 func formatResp(input interface{}) string {
