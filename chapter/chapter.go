@@ -43,12 +43,11 @@ func handleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 	}
 
 	chapter, _ := strconv.ParseInt(request.PathParameters["chapter"], 10, 64)
-	if chapter == 0 || request.QueryStringParameters["novel"] == "" {
+	if _, ok := request.PathParameters["novel"]; ok && (request.PathParameters["novel"] != "" && chapter != 0) {
+		resp, err = getChapter(request.PathParameters["novel"], chapter)
+	} else {
 		err = fmt.Errorf("Missing novel")
-
 	}
-
-	resp, err = getChapter(request.PathParameters["novel"], chapter)
 
 	if err != nil {
 		return events.APIGatewayProxyResponse{
