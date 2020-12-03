@@ -81,6 +81,7 @@ func Init() {
 }
 
 func getChapterList(novel string) ([]Chapter, error) {
+	fmt.Println("getChapterList")
 	q := client.NewRef("novels/" + novel).OrderByChild("chapter")
 	result, err := q.GetOrdered(context.Background())
 	if err != nil {
@@ -91,12 +92,13 @@ func getChapterList(novel string) ([]Chapter, error) {
 	var ch Chapter
 	for _, c := range result {
 		c.Unmarshal(&ch)
-		chapters = append(chapters, ch)
+		chapters = append(chapters, Chapter{Title: ch.Title, Chapter: ch.Chapter})
 	}
 	return chapters, nil
 }
 
 func getChapterList2(novel string) ([]Chapter, error) {
+	fmt.Println("getChapterList2")
 	var shallowNovels map[string]bool
 	if err := client.NewRef("novels/"+novel).GetShallow(context.Background(), &shallowNovels); err != nil {
 		return nil, err
