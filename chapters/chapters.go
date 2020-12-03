@@ -41,7 +41,7 @@ func handleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 		"Access-Control-Allow-Methods": "GET",
 	}
 	fmt.Println("param:" + request.PathParameters["novel"])
-	if _, ok := request.PathParameters["novel"]; ok {
+	if _, ok := request.PathParameters["novel"]; ok && (request.PathParameters["novel"] != "") {
 		resp, err = getChapters(request.PathParameters["novel"])
 	} else {
 		err = fmt.Errorf("Missing novel")
