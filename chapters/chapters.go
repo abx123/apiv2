@@ -97,8 +97,8 @@ func getChapters(novel string) ([]Chapter, error) {
 	return chapters, nil
 }
 
-func getChapterList2(novel string) ([]Chapter, error) {
-	fmt.Println("getChapterList2")
+func getChapters2(novel string) ([]Chapter, error) {
+	fmt.Println("getChapters2")
 	var shallowNovels map[string]bool
 	if err := client.NewRef("novels/"+novel).GetShallow(context.Background(), &shallowNovels); err != nil {
 		return nil, err
@@ -107,6 +107,7 @@ func getChapterList2(novel string) ([]Chapter, error) {
 	for k := range shallowNovels {
 		novels = append(novels, Chapter{Title: k})
 	}
+	fmt.Println(fmt.Sprintf("%+v", novels))
 	return novels, nil
 }
 
